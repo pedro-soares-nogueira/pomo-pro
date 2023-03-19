@@ -9,11 +9,14 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background: ${(props) => props.theme['gray-900']};
     color: ${(props) => props.theme['gray-300']};
+    font-family: 'Poppins', sans-serif;
+
     -webkit-font-smoothing: antialiased;
   }
 
    body, input, textarea, button {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 400;
     font-size: 1rem;
   }

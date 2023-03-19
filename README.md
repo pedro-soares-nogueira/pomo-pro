@@ -10,4 +10,6 @@ npm run dev
 
 - Styled-components
 - ESLint
--
+- Router-dom
+- Hook Form
+- Zod
