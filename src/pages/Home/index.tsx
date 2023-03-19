@@ -11,6 +11,13 @@ import {
 } from './style'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { useState } from 'react'
+
+interface Cycle {
+  id: string
+  task: string
+  minutesAmount: number
+}
 
 const newCycleFormValidationSchema = z.object({
   task: z.string().min(1, 'Informe a tarefa'),
@@ -22,6 +29,9 @@ const newCycleFormValidationSchema = z.object({
 type NewCycleFormData = z.infer<typeof newCycleFormValidationSchema>
 
 const Home = () => {
+  const [cycles, setCycles] = useState<Cycle[]>([])
+  const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
+
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
@@ -31,10 +41,22 @@ const Home = () => {
   })
 
   const handleCreateNewCycle = (data: NewCycleFormData) => {
-    console.log(data)
+    const id = String(new Date().getTime())
+
+    const newCycle: Cycle = {
+      id,
+      task: data.task,
+      minutesAmount: data.minutesAmount,
+    }
+
+    setActiveCycleId(id)
+
+    setCycles((state) => [...state, newCycle])
     reset()
   }
 
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+  console.log(activeCycle)
   const task = watch('task')
   const isSubmitDisabled = !task
 
