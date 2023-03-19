@@ -8,7 +8,6 @@ const CountDown = () => {
     activeCycle,
     activeCycleId,
     markCurrentCycleAsFinished,
-    markActiveCycleIdAsNull,
     amountSecondsPassed,
     setSecondsPassed,
   } = useContext(CyclesContext)
@@ -41,7 +40,6 @@ const CountDown = () => {
           markCurrentCycleAsFinished()
           setSecondsPassed(totalSeconds)
           clearInterval(interval)
-          markActiveCycleIdAsNull()
         } else {
           setSecondsPassed(secondsDifference)
         }
@@ -56,7 +54,6 @@ const CountDown = () => {
     totalSeconds,
     activeCycleId,
     markCurrentCycleAsFinished,
-    markActiveCycleIdAsNull,
     setSecondsPassed,
   ])
 
