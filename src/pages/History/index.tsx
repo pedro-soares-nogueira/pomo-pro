@@ -53,8 +53,9 @@ const History = () => {
   const yesterdayHorasFormatted = String(yesterdayHour).padStart(2, '0')
   const yesterdayHinutesFormatted = String(yesterdayMinutes).padStart(2, '0')
 
-  //TODAY
+  /* ------------------ */
 
+  //TODAY
   const todayCycles = cycles.filter(cycle => new Date(cycle.startDate).toISOString().split("T")[0] === new Date().toISOString().split("T")[0])
 
   //ALL TIME TASK
@@ -73,7 +74,6 @@ const History = () => {
     }
   })
 
-
   //ALL TIME TASK WITHOUT UNDEFINED(ACTIVE CYCLE)
   const totalAtWork = totalAtWorkMap.filter(total => total !== undefined)
 
@@ -90,6 +90,44 @@ const History = () => {
 
   const cyclesOrderByDate = cycles.sort((a, b) => new Date(a.startDate).getTime()  - new Date(b.startDate).getTime())
 
+  /* ------------------ */
+
+  //WEEKY
+
+  let date = new Date();
+  let firstday = new Date(date.setDate(date.getDate() - date.getDay())).toISOString().split("T")[0];
+  //let lastday = new Date(date.setDate(date.getDate() - date.getDay()+6)).toISOString().split("T")[0];
+
+  const weeklyCycles = cycles.filter(cycle => {
+    if (firstday <= new Date(cycle.startDate).toISOString().split("T")[0]) {
+      return cycle
+    }
+  })
+
+  const weeklyTotalWorked = weeklyCycles.map((cycle) => {
+    if (cycle.interruptedDate) {
+      return differenceInMinutes(
+        new Date(cycle.interruptedDate),
+        new Date(cycle.startDate)
+      )
+    }
+    if (cycle.finishedDate) {
+      return differenceInMinutes(
+        new Date(cycle.finishedDate),
+        new Date(cycle.startDate)
+        )
+      }
+  })
+
+  const weeklyTotalAtWorkAmount = weeklyTotalWorked.reduce((total, cycle) => {
+    return total! + cycle!
+  }, 0)
+
+  const weellyHour = Math.floor(weeklyTotalAtWorkAmount! / 60)
+  const weellyMinutes = weeklyTotalAtWorkAmount! % 60
+  const weellyHorasFormatted = String(weellyHour).padStart(2, '0')
+  const weellyHinutesFormatted = String(weellyMinutes).padStart(2, '0')
+
   return (
     <HistoryContainer>
 
@@ -103,8 +141,7 @@ const History = () => {
           <p>Hoje</p>
         </TodayCard>
         <ManageCard>
-          <span>--------</span>
-          {/* <span>{`${yesterdayHorasFormatted}h${yesterdayHinutesFormatted}m`}</span> */}
+          <span>{`${weellyHorasFormatted}h${weellyHinutesFormatted}m`}</span>
           <p>Semanal</p>
         </ManageCard>
       </AmountDetails>
