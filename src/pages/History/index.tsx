@@ -52,7 +52,7 @@ const History = () => {
           <p>Ontem</p>
         </DetailsCard>
         <DetailsCard>
-          <span>{horasFormatted + ':' + minutesFormatted}</span>
+          <span>{`${horasFormatted}h${minutesFormatted}m`}</span>
           <p>Hoje</p>
         </DetailsCard>
       </AmountDetails>

@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const HistoryContainer = styled.main`
   flex: 1;
-  padding: 3.5rem;
   display: flex;
   flex-direction: column;
   height: 70vh;
@@ -86,8 +85,8 @@ export const AmountDetails = styled.div`
 export const DetailsCard = styled.div`
   background-color: ${(props) => props.theme['gray-600']};
   padding: 1rem;
-  width: 10rem;
-  height: 10rem;
+  width: 12rem;
+  height: 12rem;
   border-radius: 99999px;
   display: flex;
   flex-direction: column;
