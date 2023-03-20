@@ -6,6 +6,7 @@ import {
 } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { useContext } from 'react'
+import SearchForm from '../../components/SearchForm'
 import { CyclesContext } from '../../contexts/CycleContext'
 import {
   AmountDetails,
@@ -109,6 +110,9 @@ const History = () => {
       </AmountDetails>
 
       <h1>Meu histórico</h1>
+      
+      <SearchForm/>
+
       <HistoryList>
         <table>
           <thead>
