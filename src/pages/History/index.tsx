@@ -119,7 +119,9 @@ const History = () => {
       }
   })
 
-  const weeklyTotalAtWorkAmount = weeklyTotalWorked.reduce((total, cycle) => {
+  const weeklyTotalAtWork = weeklyTotalWorked.filter(total => total !== undefined)
+
+  const weeklyTotalAtWorkAmount = weeklyTotalAtWork.reduce((total, cycle) => {
     return total! + cycle!
   }, 0)
 
