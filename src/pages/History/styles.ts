@@ -86,8 +86,7 @@ export const DetailsCard = styled.div`
   background-color: ${(props) => props.theme['gray-600']};
   padding: 1rem;
   width: 12rem;
-  height: 12rem;
-  border-radius: 99999px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
