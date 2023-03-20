@@ -94,8 +94,23 @@ export const DetailsCard = styled.div`
   
   span {
     display: block;
+  }
+`
+
+export const ManageCard = styled(DetailsCard)`
+  span {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+`
+
+export const TodayCard = styled(DetailsCard)`
+  p {
+    font-weight: 700;
+  }
+
+  span {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 1rem;
   }
 `

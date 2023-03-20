@@ -9,37 +9,23 @@ import { useContext } from 'react'
 import { CyclesContext } from '../../contexts/CycleContext'
 import {
   AmountDetails,
-  DetailsCard,
+  ManageCard,
   HistoryContainer,
   HistoryList,
   Status,
+  TodayCard,
 } from './styles'
 
 const History = () => {
   const { cycles } = useContext(CyclesContext)
-  
-  //ALL TIME TASK
-  const totalAtWorkMap = cycles.map((cycle) => {
-    if (cycle.interruptedDate) {
-      return differenceInMinutes(
-        new Date(cycle.interruptedDate),
-        new Date(cycle.startDate)
-      )
-    }
-    if (cycle.finishedDate) {
-      return differenceInMinutes(
-        new Date(cycle.finishedDate),
-        new Date(cycle.startDate)
-      )
-    }
-  })
-  
+
+  /* YESTERDAY */
   const yesterday = () => {
     let date = new Date();
     date.setDate(date.getDate() - 1);
     return date.toISOString().split('T')[0];
   };
-  
+
   const yesterdayCycles = cycles.filter(cycle => new Date(cycle.startDate).toISOString().split("T")[0] === yesterday())
   
   const yesterdayTotalWorked = yesterdayCycles.map((cycle) => {
@@ -56,18 +42,36 @@ const History = () => {
         )
       }
   })
+
   const yesterdayTotalAtWorkAmount = yesterdayTotalWorked.reduce((total, cycle) => {
     return total! + cycle!
   }, 0)
 
-  console.log(yesterdayTotalAtWorkAmount)
-
-  //FORMATTED YESTERDAY TIME
   const yesterdayHour = Math.floor(yesterdayTotalAtWorkAmount! / 60)
   const yesterdayMinutes = yesterdayTotalAtWorkAmount! % 60
   const yesterdayHorasFormatted = String(yesterdayHour).padStart(2, '0')
   const yesterdayHinutesFormatted = String(yesterdayMinutes).padStart(2, '0')
-      
+
+  //TODAY
+
+  const todayCycles = cycles.filter(cycle => new Date(cycle.startDate).toISOString().split("T")[0] === new Date().toISOString().split("T")[0])
+
+  //ALL TIME TASK
+  const totalAtWorkMap = todayCycles.map((cycle) => {
+    if (cycle.interruptedDate) {
+      return differenceInMinutes(
+        new Date(cycle.interruptedDate),
+        new Date(cycle.startDate)
+      )
+    }
+    if (cycle.finishedDate) {
+      return differenceInMinutes(
+        new Date(cycle.finishedDate),
+        new Date(cycle.startDate)
+      )
+    }
+  })
+
 
   //ALL TIME TASK WITHOUT UNDEFINED(ACTIVE CYCLE)
   const totalAtWork = totalAtWorkMap.filter(total => total !== undefined)
@@ -89,14 +93,19 @@ const History = () => {
     <HistoryContainer>
 
       <AmountDetails>
-        <DetailsCard>
+        <ManageCard>
           <span>{`${yesterdayHorasFormatted}h${yesterdayHinutesFormatted}m`}</span>
           <p>Ontem</p>
-        </DetailsCard>
-        <DetailsCard>
+        </ManageCard>
+        <TodayCard>
           <span>{`${horasFormatted}h${minutesFormatted}m`}</span>
           <p>Hoje</p>
-        </DetailsCard>
+        </TodayCard>
+        <ManageCard>
+          <span>--------</span>
+          {/* <span>{`${yesterdayHorasFormatted}h${yesterdayHinutesFormatted}m`}</span> */}
+          <p>Semanal</p>
+        </ManageCard>
       </AmountDetails>
 
       <h1>Meu histórico</h1>
