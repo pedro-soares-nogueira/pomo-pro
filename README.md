@@ -13,3 +13,11 @@ npm run dev
 - Router-dom
 - Hook Form
 - Zod
+
+
+
+###### Features
+
+- [ ] Pause Timer
+- [ ] Search by title (regex on array)
+- [ ] Timer finish sound

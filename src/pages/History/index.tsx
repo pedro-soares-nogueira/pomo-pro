@@ -32,7 +32,7 @@ const History = () => {
             <tr>
               <th>Tarefa</th>
               <th>Duração</th>
-              <th>Duração</th>
+              <th>Quando</th>
               <th>Status</th>
             </tr>
           </thead>
