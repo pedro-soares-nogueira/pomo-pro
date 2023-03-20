@@ -16,7 +16,7 @@ npm run dev
 
 
 
-###### Features
+##### Features
 
 - [ ] Pause Timer
 - [ ] Search by title (regex on array)
