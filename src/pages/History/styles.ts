@@ -14,7 +14,6 @@ export const HistoryContainer = styled.main`
 
 export const HistoryList = styled.div`
   flex: 1;
-  overflow: auto;
   margin-top: 2rem;
   table {
     width: 100%;
@@ -74,5 +73,31 @@ export const Status = styled.span<StatusProps>`
     height: 0.5rem;
     border-radius: 9999px;
     background: ${(props) => props.theme[STATUS_COLORS[props.statusColor]]};
+  }
+`
+export const AmountDetails = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 2rem;
+`
+
+export const DetailsCard = styled.div`
+  background-color: ${(props) => props.theme['gray-600']};
+  padding: 1rem;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 99999px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
   }
 `
