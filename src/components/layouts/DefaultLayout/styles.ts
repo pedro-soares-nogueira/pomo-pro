@@ -31,12 +31,15 @@ export const HeaderContainer = styled.header`
 `
 
 export const LayoutContainer = styled.div`
-  max-width: 74rem;
-  height: calc(100vh - 10rem);
-  margin: 5rem auto;
+  margin: 5rem;
   padding: 2.5rem;
   background: ${(props) => props.theme['gray-800']};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 10rem);
+
+  div {
+    max-width: 74rem;
+  }
 `

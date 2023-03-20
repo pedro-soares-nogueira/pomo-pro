@@ -9,7 +9,7 @@ const NewCycleForm = () => {
 
   return (
     <FormContainer>
-      <label htmlFor="task">Vou trabalhar em</label>
+      <label htmlFor="task">Projeto:</label>
       <TaskInput
         id="task"
         placeholder="Dê um nome ao projeto"
@@ -17,7 +17,7 @@ const NewCycleForm = () => {
         disabled={!!activeCycle}
       />
 
-      <label htmlFor="minutesAmount">durante</label>
+      <label htmlFor="minutesAmount">Tempo em minutos:</label>
       <MinutesAmountInput
         type="number"
         id="minutesAmount"
@@ -25,8 +25,6 @@ const NewCycleForm = () => {
         {...register('minutesAmount', { valueAsNumber: true })}
         disabled={!!activeCycle}
       />
-
-      <span>minutos.</span>
     </FormContainer>
   )
 }
