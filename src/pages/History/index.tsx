@@ -17,14 +17,13 @@ import {
 const History = () => {
   const { cycles } = useContext(CyclesContext)
 
-  const totalAtWork = cycles.map((cycle) => {
+  const totalAtWorkMap = cycles.map((cycle) => {
     if (cycle.interruptedDate) {
       return differenceInMinutes(
         new Date(cycle.interruptedDate),
         new Date(cycle.startDate)
       )
     }
-
     if (cycle.finishedDate) {
       return differenceInMinutes(
         new Date(cycle.finishedDate),
@@ -32,6 +31,8 @@ const History = () => {
       )
     }
   })
+
+  const totalAtWork = totalAtWorkMap.filter(total => total !== undefined)
 
   const totalAtWorkAmount = totalAtWork.reduce((total, cycle) => {
     return total! + cycle!
@@ -41,8 +42,6 @@ const History = () => {
   const minutes = totalAtWorkAmount! % 60
   const horasFormatted = String(hour).padStart(2, '0')
   const minutesFormatted = String(minutes).padStart(2, '0')
-
-  console.log(horasFormatted + ':' + minutesFormatted)
 
   return (
     <HistoryContainer>
