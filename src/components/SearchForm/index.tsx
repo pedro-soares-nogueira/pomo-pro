@@ -1,4 +1,3 @@
-import React from 'react'
 import { SearchFormContainer } from './styled'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
