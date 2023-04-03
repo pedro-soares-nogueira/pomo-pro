@@ -8,7 +8,7 @@ import ptBR from 'date-fns/locale/pt-BR'
 import { useContext, useState } from 'react'
 import { z } from 'zod'
 import { CyclesContext } from '../../contexts/CycleContext'
-import { HistoryContainer, HistoryList, Status } from './styles'
+import { HistoryContainer, HistoryHeader, HistoryList, Status } from './styles'
 import PomoManagemant from '../../components/PomoManagemant'
 import { SearchFormContainer } from '../../components/SearchForm/styled'
 import { useForm } from 'react-hook-form'
@@ -43,11 +43,47 @@ const History = () => {
     (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
   )
 
+  /* Project Management */
+
+  //ALL TIME TASK
+  const totalAtWorkMap = filteredCycles.map((cycle) => {
+    if (cycle.interruptedDate) {
+      return differenceInMinutes(
+        new Date(cycle.interruptedDate),
+        new Date(cycle.startDate)
+      )
+    }
+    if (cycle.finishedDate) {
+      return differenceInMinutes(
+        new Date(cycle.finishedDate),
+        new Date(cycle.startDate)
+      )
+    }
+  })
+
+  //ALL TIME TASK WITHOUT UNDEFINED(ACTIVE CYCLE)
+  const totalAtWork = totalAtWorkMap.filter((total) => total !== undefined)
+
+  //TOTAL WORKED AMOUNT
+  const totalAtWorkAmount = totalAtWork.reduce((total, cycle) => {
+    return total! + cycle!
+  }, 0)
+
+  //FORMATTED TIME
+  const hour = Math.floor(totalAtWorkAmount! / 60)
+  const minutes = totalAtWorkAmount! % 60
+  const horasFormatted = String(hour).padStart(2, '0')
+  const minutesFormatted = String(minutes).padStart(2, '0')
+
+  console.log(`${horasFormatted}h ${minutesFormatted}m`)
+
   return (
     <HistoryContainer>
       <PomoManagemant />
 
-      <h1>Meu histórico</h1>
+      <HistoryHeader>
+        <h1>Meu histórico</h1>-<span>Total de horas projeto: {`${horasFormatted}h ${minutesFormatted}m`}</span>
+      </HistoryHeader>
 
       <SearchFormContainer onSubmit={handleSubmit(handleSearchProjects)}>
         <input

@@ -74,3 +74,9 @@ export const Status = styled.span<StatusProps>`
     background: ${(props) => props.theme[STATUS_COLORS[props.statusColor]]};
   }
 `
+
+export const HistoryHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`
