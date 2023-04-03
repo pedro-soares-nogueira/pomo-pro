@@ -25,6 +25,7 @@ type SearchFormInputs = z.infer<typeof searchFormSchema>
 const History = () => {
   const { cycles } = useContext(CyclesContext)
   const [filteredCycles, setFilteredCycles] = useState<Cycle[]>(cycles)
+  const [showSearchMetrics, setShowSearchMetrics] = useState(false)
 
   const {
     register,
@@ -35,8 +36,8 @@ const History = () => {
   })
 
   const handleSearchProjects = (data: SearchFormInputs) => {
+    setShowSearchMetrics(true)
     setFilteredCycles(cycles.filter((cycle) => cycle.task === data.query))
-    console.log(filteredCycles)
   }
 
   const cyclesOrderByDate = filteredCycles.sort(
@@ -75,14 +76,15 @@ const History = () => {
   const horasFormatted = String(hour).padStart(2, '0')
   const minutesFormatted = String(minutes).padStart(2, '0')
 
-  console.log(`${horasFormatted}h ${minutesFormatted}m`)
-
   return (
     <HistoryContainer>
       <PomoManagemant />
 
       <HistoryHeader>
-        <h1>Meu histórico</h1>-<span>Total de horas projeto: {`${horasFormatted}h ${minutesFormatted}m`}</span>
+        <h1>Meu histórico</h1>
+        {showSearchMetrics &&
+          <span>* Total de horas projeto: {`${horasFormatted}h ${minutesFormatted}m`}</span>
+        }
       </HistoryHeader>
 
       <SearchFormContainer onSubmit={handleSubmit(handleSearchProjects)}>
